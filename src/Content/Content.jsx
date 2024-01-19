@@ -20,7 +20,7 @@ const Content = () => {
     password: "",
     category: "",
   });
-
+  const [passwordError, setPasswordError] = useState("");
   const { id } = useParams();
 
   const fetchData = async () => {
@@ -50,6 +50,19 @@ const Content = () => {
       ...prevUser,
       [name]: value,
     }));
+
+    if (name === "password") {
+      const errorMessage = validatePassword(value);
+      setPasswordError(errorMessage);
+    }
+  };
+
+  const validatePassword = (password) => {
+    let errorMessage = "";
+    if (password.length < 6) {
+      errorMessage = "Password min 6 Character";
+    }
+    return errorMessage;
   };
 
   const handleSelectChange = (e) => {
@@ -62,10 +75,14 @@ const Content = () => {
 
   const handleFormSubmit = async (e) => {
     e.preventDefault();
+    const errorMessage = validatePassword(newUser.password);
+    if (errorMessage) {
+      setPasswordError(errorMessage);
+      return;
+    }
     try {
-      // await axios.post("http://localhost:3030/password", newUser);
       await callAPI("/password", "POST", newUser);
-      fetchData(); // Fetch data again after creating the user
+      fetchData();
       setNewUser({
         provider: "",
         email: "",
@@ -107,7 +124,7 @@ const Content = () => {
               <TextField id="email" name="email" label="Email" value={newUser.email} onChange={handleInputChange} />
             </div>
             <div>
-              <TextField id="password" name="password" label="Password" value={newUser.password} onChange={handleInputChange} />
+              <TextField id="password" name="password" type="password" label="Password" value={newUser.password} onChange={handleInputChange} error={!!passwordError} helperText={passwordError} />
               <FormControl sx={{ m: 1, width: "25ch" }}>
                 <InputLabel id="demo-simple-select-label">Category</InputLabel>
                 <Select labelId="demo-simple-select-label" id="demo-simple-select" value={newUser.category} label="Age" onChange={handleSelectChange}>
@@ -148,10 +165,6 @@ const Content = () => {
                   <td className={classes.btn_col}>
                     <Button className={classes.btn_delete} variant="outlined" color="error" onClick={() => handleDelete(data.id)}>
                       <p>Delete</p>
-                    </Button>
-
-                    <Button className={classes.btn_delete} variant="outlined" color="success" onClick={() => handleDelete(data.id)}>
-                      <p>View</p>
                     </Button>
                   </td>
                 </tr>

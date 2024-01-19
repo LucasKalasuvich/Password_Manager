@@ -6,6 +6,13 @@
       "email": "mail@phincon.com",
       "password": "Bethebest123",
       "category": "Work"
+    },
+    {
+      "id": "0ff1",
+      "provider": "Channel",
+      "email": "lucas@channel.com",
+      "password": "Lucas12345",
+      "category": "Work"
     }
   ]
 }
