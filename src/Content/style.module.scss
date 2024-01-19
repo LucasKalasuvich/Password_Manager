@@ -1,0 +1,45 @@
+@import "../styles/base.scss";
+
+.wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 0.1rem;
+  margin-top: 50px;
+
+  table,
+  th,
+  td {
+    border: 1px solid;
+  }
+
+  table {
+    width: 70px;
+  }
+
+  .addUser {
+    display: flex;
+    justify-content: center;
+  }
+
+  .btn {
+    display: flex;
+    justify-content: end;
+    padding: 1rem;
+  }
+
+  .btn_delete {
+    width: 30px;
+    height: 30px;
+  }
+
+  .btn_delete p {
+    font-size: 12px;
+  }
+
+  .btn_col {
+    display: flex;
+    gap: 1rem;
+  }
+}

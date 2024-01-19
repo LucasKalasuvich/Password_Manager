@@ -1,0 +1,17 @@
+@import "../styles/base.scss";
+
+.container {
+    width: 100%;
+    background: $background;
+
+    @include directionX;
+    .navbar {
+        color: $fontextColor;
+        font-size: 20px;
+        font-weight: $fontWeight;
+        cursor: pointer;
+        padding: 1rem;
+        text-decoration: none;
+        box-shadow: 30px;
+    }
+}
